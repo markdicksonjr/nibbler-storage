@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/markdicksonjr/nibbler"
-	"github.com/markdicksonjr/nibbler/storage/sftp/client"
+	"github.com/markdicksonjr/nibbler-storage/sftp/client"
 	"log"
 	"strconv"
 )
@@ -10,7 +10,7 @@ import (
 func main() {
 
 	// allocate configuration (from env vars, files, etc)
-	config, err := nibbler.LoadConfiguration(nil)
+	config, err := nibbler.LoadConfiguration()
 
 	if err != nil {
 		log.Fatal(err)

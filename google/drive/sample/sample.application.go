@@ -3,14 +3,14 @@ package main
 import (
 	"fmt"
 	"github.com/markdicksonjr/nibbler"
-	"github.com/markdicksonjr/nibbler/storage/google/drive"
+	"github.com/markdicksonjr/nibbler-storage/google/drive"
 	"log"
 )
 
 func main() {
 
 	// allocate configuration (from env vars, files, etc)
-	config, err := nibbler.LoadConfiguration(nil)
+	config, err := nibbler.LoadConfiguration()
 
 	if err != nil {
 		log.Fatal(err)

@@ -18,8 +18,8 @@ type Extension struct {
 }
 
 func (s *Extension) Init(app *nibbler.Application) error {
-	s.accountName = app.GetConfiguration().Raw.Get("azure", "blob", "account", "name").String("")
-	s.accountKey = app.GetConfiguration().Raw.Get("azure", "blob", "account", "key").String("")
+	s.accountName = app.Config.Raw.Get("azure", "blob", "account", "name").String("")
+	s.accountKey = app.Config.Raw.Get("azure", "blob", "account", "key").String("")
 
 	if s.accountName == "" || s.accountKey == "" {
 		return errors.New("azure blob extension requires both account name and account key")
@@ -31,12 +31,16 @@ func (s *Extension) Init(app *nibbler.Application) error {
 	return err
 }
 
-func (s *Extension) AddRoutes(app *nibbler.Application) error {
+func (s *Extension) PostInit(app *nibbler.Application) error {
 	return nil
 }
 
 func (s *Extension) Destroy(app *nibbler.Application) error {
 	return nil
+}
+
+func (s *Extension) GetName() string {
+	return "azure"
 }
 
 func (s *Extension) GetContainerURL(ctx context.Context, name string) (*azblob.ContainerURL, error) {

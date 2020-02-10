@@ -28,11 +28,11 @@ type Extension struct {
 
 func (s *Extension) Init(app *nibbler.Application) error {
 	if s.CredentialsPath == "" {
-		s.CredentialsPath = app.GetConfiguration().Raw.Get("google.drive.credentials.path").String("drive-credentials.json")
+		s.CredentialsPath = app.Config.Raw.Get("google.drive.credentials.path").String("drive-credentials.json")
 	}
 
 	if s.TokenFilePath == "" {
-		s.TokenFilePath = app.GetConfiguration().Raw.Get("google.drive.tokenfile.path").String("drive-token.json")
+		s.TokenFilePath = app.Config.Raw.Get("google.drive.tokenfile.path").String("drive-token.json")
 	}
 
 	b, err := ioutil.ReadFile(s.CredentialsPath)
@@ -51,6 +51,10 @@ func (s *Extension) Init(app *nibbler.Application) error {
 	}
 
 	return nil
+}
+
+func (s *Extension) GetName() string {
+	return "google drive"
 }
 
 func (s *Extension) InitService() error {

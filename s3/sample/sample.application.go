@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/markdicksonjr/nibbler"
-	"github.com/markdicksonjr/nibbler/storage/s3"
+	"github.com/markdicksonjr/nibbler-storage/s3"
 	"log"
 )
 
 func main() {
 
 	// allocate configuration (from env vars, files, etc)
-	config, err := nibbler.LoadConfiguration(nil)
+	config, err := nibbler.LoadConfiguration()
 
 	if err != nil {
 		log.Fatal(err)

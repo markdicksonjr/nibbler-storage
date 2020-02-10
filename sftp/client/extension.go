@@ -40,15 +40,15 @@ func (s *Extension) Connect() error {
 	}
 
 	if len(s.Username) == 0 {
-		s.Username = s.app.GetConfiguration().Raw.Get("sftp", "client", "username").String("")
+		s.Username = s.app.Config.Raw.Get("sftp", "client", "username").String("")
 	}
 
 	if len(s.Password) == 0 {
-		s.Password = s.app.GetConfiguration().Raw.Get("sftp", "client", "password").String("")
+		s.Password = s.app.Config.Raw.Get("sftp", "client", "password").String("")
 	}
 
 	if len(s.Host) == 0 {
-		s.Host = s.app.GetConfiguration().Raw.Get("sftp", "client", "host").String("")
+		s.Host = s.app.Config.Raw.Get("sftp", "client", "host").String("")
 	}
 
 	callback := ssh.InsecureIgnoreHostKey()
@@ -90,4 +90,8 @@ func (s *Extension) Destroy(app *nibbler.Application) error {
 		s.Client = nil
 	}
 	return nil
+}
+
+func (s *Extension) GetName() string {
+	return "sftp"
 }

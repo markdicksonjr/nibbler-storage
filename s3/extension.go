@@ -38,16 +38,16 @@ func (s S3CredentialProvider) IsExpired() bool {
 }
 
 func (s *Extension) Init(app *nibbler.Application) error {
-	if app.GetConfiguration() == nil || app.GetConfiguration().Raw == nil {
+	if app.Config == nil || app.Config.Raw == nil {
 		return errors.New("app configuration not found by s3 extension")
 	}
 
 	sess, err := session.NewSession(&aws.Config{
 		Credentials: credentials.NewCredentials(&S3CredentialProvider{
-			Config: app.GetConfiguration(),
+			Config: app.Config,
 		}),
-		Endpoint: aws.String(app.GetConfiguration().Raw.Get("s3", "endpoint").String("")),
-		Region:   aws.String(app.GetConfiguration().Raw.Get("s3", "region").String("")),
+		Endpoint: aws.String(app.Config.Raw.Get("s3", "endpoint").String("")),
+		Region:   aws.String(app.Config.Raw.Get("s3", "region").String("")),
 	})
 
 	if err != nil {
@@ -58,4 +58,8 @@ func (s *Extension) Init(app *nibbler.Application) error {
 	s.S3 = s3.New(sess)
 
 	return nil
+}
+
+func (s *Extension) GetName() string {
+	return "s3"
 }
